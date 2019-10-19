@@ -8,16 +8,8 @@ public class PacManMove : MonoBehaviour
     [SerializeField]
     private float speed = 0.4f;
     private bool canMove = true;
-    private Rigidbody pacManRigidBody;
-    
-    private const string groundTag = "Ground";
 
-    
-    
-    void Start()
-    {
-        pacManRigidBody = GetComponent<Rigidbody>();
-    }
+    private const string GROUND_TAG = "Ground";
 
     void Update() 
     {
@@ -60,7 +52,7 @@ public class PacManMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag(groundTag))
+        if (other.gameObject.CompareTag(GROUND_TAG))
             return;
         
         canMove = false;
