@@ -11,7 +11,7 @@ public class PacManMove : MonoBehaviour
 
     private const string GROUND_TAG = "Ground";
 
-    void Update() 
+    private void Update() 
     {
 
         if (Input.GetKeyDown(KeyCode.A))

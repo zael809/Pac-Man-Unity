@@ -9,9 +9,14 @@ public class Pellet : MonoBehaviour
     private int points = 10;
     private const string PLAYER_TAG = "Player";
 
+    private void Start()
+    {
+        EventManager.onGameOver += OnReset;
+    }
+
     private void CollectPellet()
     {
-        ScoreManager.Instance.AddScore(points);
+        EventManager.RaiseOnScore(points);
         gameObject.SetActive(false);
     }
 
@@ -21,5 +26,10 @@ public class Pellet : MonoBehaviour
         {
             CollectPellet();
         }
+    }
+
+    private void OnReset()
+    {
+        gameObject.SetActive(true);
     }
 }
