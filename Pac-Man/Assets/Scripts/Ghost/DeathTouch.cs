@@ -6,8 +6,8 @@ using UnityEngine;
 public class DeathTouch : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
-    
-    private void OnCollisionEnter(Collision other)
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(PLAYER_TAG))
         {
