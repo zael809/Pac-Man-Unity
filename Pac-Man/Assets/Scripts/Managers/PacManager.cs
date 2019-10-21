@@ -1,16 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PacManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject player;
+    private static GameObject player;
     private Vector3 SpawnPos;
 
     private int lifeCount = 3;
-    
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        player = gameObject;
+    }
+
     private void Start()
     {
         SpawnPos = player.transform.position;
@@ -32,5 +36,10 @@ public class PacManager : MonoBehaviour
     {
         player.transform.position = SpawnPos;
         LoseALife();
+    }
+
+    public static Transform PacManPosition()
+    {
+        return player.transform;
     }
 }

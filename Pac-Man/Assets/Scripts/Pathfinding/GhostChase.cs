@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class GhostChase : MonoBehaviour
 {
-
 	[SerializeField]
-	private Graph graph;
+	protected Graph graph;
 
 	[SerializeField]
 	private float speed = 0.1f;
 
-	private Node currentNode;
+	protected Node currentNode;
 	private Node previousNode;
 
 	private int layerMask = 1 << 8;
 
 	[SerializeField] 
-	private Transform pacman;
+	protected Transform target;
 
-	private Node PossibleNewEndNode;
+	private const string FOLLOW_PATH = "FollowPath";
 	
-	void Start ()
+	protected void Start ()
 	{
 		layerMask = ~layerMask;
 		currentNode = ClosestStartNodeToTarget();
@@ -29,7 +28,7 @@ public class GhostChase : MonoBehaviour
 		Follow();
 	}
 	
-	void Update()
+	protected void Update()
 	{
 		if (currentNode != null)
 		{
@@ -39,9 +38,9 @@ public class GhostChase : MonoBehaviour
 
 	protected void Follow()
 	{
-		StopCoroutine ("FollowPath");
+		StopCoroutine (FOLLOW_PATH);
 
-		StartCoroutine ("FollowPath");
+		StartCoroutine (FOLLOW_PATH);
 	}
 	
 	IEnumerator FollowPath()
@@ -54,7 +53,7 @@ public class GhostChase : MonoBehaviour
 		Follow();
 	}
 
-	private Node ClosestStartNodeToTarget()
+	protected Node ClosestStartNodeToTarget()
 	{
 		List<Node> possibleStartNodes = new List<Node>();
 		Collider[] nodes = Physics.OverlapSphere(transform.position, 7.0f);
@@ -65,12 +64,12 @@ public class GhostChase : MonoBehaviour
 	                possibleStartNodes.Add(hit.transform.GetComponent<Node>());
                 }
             }
-            return graph.GetClosestNodeToTargetFromSelection(pacman,possibleStartNodes);
+            return graph.GetClosestNodeToTargetFromSelection(target,possibleStartNodes);
 	}
 
 	private Node ClosestNeighboringNodeToTarget()
 	{
-		return graph.GetClosestNeighborToTarget(pacman, currentNode, previousNode);
+		return graph.GetClosestNeighborToTarget(target, currentNode, previousNode);
 	}
 
 	private bool HasReachedDestination()
@@ -78,8 +77,8 @@ public class GhostChase : MonoBehaviour
 		return (transform.position.x == currentNode.transform.position.x && transform.position.z == currentNode.transform.position.z);
 	}
 
-	private float DistanceToPacMan()
+	protected float DistanceToTarget()
 	{
-		return Vector3.Distance(transform.position, pacman.position);
+		return Vector3.Distance(transform.position, target.position);
 	}
 }

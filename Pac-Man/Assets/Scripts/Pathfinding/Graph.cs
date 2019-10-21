@@ -44,4 +44,10 @@ public class Graph : MonoBehaviour
 		}
 		return closestNode;
 	}
+
+	public Node GetRandomNode()
+	{
+		int randomNum = Random.Range(0, m_Nodes.Count);
+		return m_Nodes[randomNum];
+	}
 }
