@@ -6,8 +6,4 @@ public class Node : MonoBehaviour
 {
 	[SerializeField]
 	public  List<Node> neighbors = new List<Node> ();
-	
-	//public List<Node> Neighbors => neighbors;
-	
-	
 }
